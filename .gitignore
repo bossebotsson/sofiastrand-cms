@@ -1,6 +1,5 @@
 node_modules/
-data.db
+# data.db  ← tillfälligt inkluderad för Railway-deploy
 data.db-shm
 data.db-wal
 image-map.json
-public/images/
