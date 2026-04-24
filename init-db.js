@@ -7,11 +7,6 @@ const fs       = require('fs');
 const DB_PATH  = path.join(__dirname, 'data.db');
 const EXPORT   = path.join(__dirname, 'data-export.json');
 
-if (fs.existsSync(DB_PATH)) {
-  console.log('✓ Databas finns redan, hoppar över init.');
-  process.exit(0);
-}
-
 const db = new Database(DB_PATH);
 db.pragma('journal_mode = WAL');
 
@@ -37,6 +32,12 @@ db.exec(`
     value TEXT
   );
 `);
+
+const existingPosts = db.prepare('SELECT COUNT(*) as n FROM posts').get().n;
+if (existingPosts > 0) {
+  console.log(`✓ Databas har redan ${existingPosts} nyheter, hoppar över init.`);
+  process.exit(0);
+}
 
 const data = JSON.parse(fs.readFileSync(EXPORT, 'utf8'));
 
