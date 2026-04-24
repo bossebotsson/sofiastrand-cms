@@ -4,7 +4,7 @@
   "description": "Hemsida för BRF Sofia Strand",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node init-db.js && node server.js",
     "seed": "node seed.js"
   },
   "dependencies": {
